@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A playful design system for decent.kids, inspired by primary-colored wooden blocks."
+    />
+    <meta name="theme-color" content="#f7edda" />
+    <title>decent.kids — Block Party Style Guide</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #27251f;
+        --ink-soft: #625d52;
+        --paper: #fffaf0;
+        --wood: #e7c78f;
+        --wood-light: #f7e7c7;
+        --wood-dark: #b6844d;
+        --red: #d94b3d;
+        --red-dark: #a32f27;
+        --blue: #3574b9;
+        --blue-dark: #245184;
+        --yellow: #f2c84b;
+        --yellow-dark: #b78612;
+        --green: #4f8f62;
+        --white: #ffffff;
+        --radius-sm: 0.6rem;
+        --radius-md: 1rem;
+        --radius-lg: 1.5rem;
+        --shadow-block: 0 7px 0 rgb(82 56 31 / 0.24), 0 12px 24px rgb(82 56 31 / 0.14);
+        --shadow-soft: 0 12px 32px rgb(82 56 31 / 0.12);
+        --font-display: "Arial Rounded MT Bold", "Nunito", "Trebuchet MS", sans-serif;
+        --font-body: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        background:
+          radial-gradient(circle at 15% 10%, rgb(242 200 75 / 0.18), transparent 22rem),
+          radial-gradient(circle at 85% 22%, rgb(53 116 185 / 0.12), transparent 26rem),
+          var(--paper);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .skip-link {
+        position: fixed;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 100;
+        padding: 0.65rem 1rem;
+        border-radius: var(--radius-sm);
+        background: var(--ink);
+        color: var(--white);
+        transform: translateY(-180%);
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .shell {
+        width: min(1180px, calc(100% - 2rem));
+        margin-inline: auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        border-bottom: 1px solid rgb(182 132 77 / 0.25);
+        background: rgb(255 250 240 / 0.9);
+        backdrop-filter: blur(14px);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+        gap: 1rem;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 2.25rem;
+        height: 2.25rem;
+        place-items: center;
+        border: 2px solid var(--blue-dark);
+        border-radius: 0.45rem;
+        background: var(--blue);
+        box-shadow: 0 4px 0 var(--blue-dark);
+        color: var(--white);
+        font-family: var(--font-display);
+        line-height: 1;
+        transform: rotate(-4deg);
+      }
+
+      .eyebrow {
+        margin: 0 0 0.75rem;
+        color: var(--red-dark);
+        font-family: var(--font-display);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .header-note {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+        gap: clamp(2rem, 7vw, 7rem);
+        min-height: min(760px, calc(100svh - 72px));
+        padding-block: clamp(4rem, 9vw, 8rem);
+      }
+
+      h1,
+      h2,
+      h3,
+      .display-type {
+        font-family: var(--font-display);
+        line-height: 1.08;
+      }
+
+      h1 {
+        max-width: 12ch;
+        margin: 0;
+        font-size: clamp(3.4rem, 8vw, 7.4rem);
+        letter-spacing: -0.065em;
+      }
+
+      h1 span {
+        color: var(--blue);
+      }
+
+      .hero-copy {
+        max-width: 33rem;
+      }
+
+      .hero-copy > p:not(.eyebrow) {
+        max-width: 33rem;
+        margin: 1.5rem 0 0;
+        color: var(--ink-soft);
+        font-size: clamp(1.05rem, 2vw, 1.25rem);
+      }
+
+      .block-scene {
+        position: relative;
+        min-height: 440px;
+        perspective: 900px;
+      }
+
+      .block {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        border: 2px solid rgb(39 37 31 / 0.22);
+        border-radius: 14%;
+        box-shadow: var(--shadow-block), inset 5px 5px 0 rgb(255 255 255 / 0.19), inset -5px -5px 0 rgb(39 37 31 / 0.08);
+        color: var(--white);
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 900;
+        line-height: 1;
+        text-shadow: 0 2px 0 rgb(39 37 31 / 0.16);
+      }
+
+      .block::after,
+      .wood-panel::after,
+      .swatch::after {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: repeating-linear-gradient(8deg, transparent 0 7px, rgb(255 255 255 / 0.05) 8px, transparent 9px 15px);
+        content: "";
+        pointer-events: none;
+      }
+
+      .block-red {
+        top: 9%;
+        left: 3%;
+        width: 42%;
+        aspect-ratio: 1;
+        background: var(--red);
+        transform: rotate(-8deg);
+      }
+
+      .block-blue {
+        right: 0;
+        bottom: 17%;
+        width: 49%;
+        aspect-ratio: 1;
+        background: var(--blue);
+        transform: rotate(7deg);
+      }
+
+      .block-yellow {
+        bottom: 1%;
+        left: 9%;
+        width: 42%;
+        height: 30%;
+        border-radius: 1rem;
+        background: var(--yellow);
+        color: var(--ink);
+        transform: rotate(-2deg);
+      }
+
+      .block-wood {
+        top: 0;
+        right: 10%;
+        width: 34%;
+        height: 31%;
+        background: var(--wood);
+        color: var(--ink);
+        transform: rotate(5deg);
+      }
+
+      .section {
+        padding-block: clamp(4.5rem, 9vw, 8rem);
+        border-top: 1px solid rgb(182 132 77 / 0.23);
+      }
+
+      .section-header {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1.2fr);
+        gap: 2rem;
+        align-items: end;
+        margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+      }
+
+      h2 {
+        margin: 0;
+        font-size: clamp(2.4rem, 5vw, 4.7rem);
+        letter-spacing: -0.045em;
+      }
+
+      .section-header > p {
+        max-width: 42rem;
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 1.05rem;
+      }
+
+      .principles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+
+      .wood-panel {
+        position: relative;
+        overflow: hidden;
+        min-height: 290px;
+        padding: 2rem;
+        border: 2px solid rgb(116 75 38 / 0.25);
+        border-radius: var(--radius-lg);
+        background: var(--wood-light);
+        box-shadow: var(--shadow-soft), inset 0 0 0 5px rgb(255 255 255 / 0.22);
+      }
+
+      .number-block {
+        display: grid;
+        width: 3.4rem;
+        height: 3.4rem;
+        margin-bottom: 3.8rem;
+        place-items: center;
+        border: 2px solid currentColor;
+        border-radius: 0.7rem;
+        font-family: var(--font-display);
+        font-size: 1.35rem;
+        font-weight: 900;
+        box-shadow: 0 5px 0 currentColor;
+      }
+
+      .wood-panel:nth-child(1) .number-block { color: var(--red-dark); background: var(--red); }
+      .wood-panel:nth-child(2) .number-block { color: var(--blue-dark); background: var(--blue); }
+      .wood-panel:nth-child(3) .number-block { color: #8c6512; background: var(--yellow); }
+
+      .wood-panel h3 {
+        position: relative;
+        z-index: 1;
+        margin: 0 0 0.75rem;
+        font-size: 1.65rem;
+      }
+
+      .wood-panel p {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        color: var(--ink-soft);
+      }
+
+      .swatch-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+      }
+
+      .swatch {
+        position: relative;
+        display: flex;
+        min-height: 235px;
+        flex-direction: column;
+        justify-content: flex-end;
+        overflow: hidden;
+        padding: 1.25rem;
+        border: 2px solid rgb(39 37 31 / 0.2);
+        border-radius: var(--radius-lg);
+        box-shadow: 0 6px 0 rgb(39 37 31 / 0.18);
+      }
+
+      .swatch strong,
+      .swatch code {
+        position: relative;
+        z-index: 1;
+      }
+
+      .swatch strong {
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+      }
+
+      .swatch code {
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .swatch-red { background: var(--red); color: var(--white); }
+      .swatch-blue { background: var(--blue); color: var(--white); }
+      .swatch-yellow { background: var(--yellow); }
+      .swatch-wood { background: var(--wood); }
+
+      .type-stage {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 1.25rem;
+      }
+
+      .type-card {
+        padding: clamp(1.6rem, 4vw, 3.2rem);
+        border: 2px solid rgb(39 37 31 / 0.13);
+        border-radius: var(--radius-lg);
+        background: var(--white);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .type-label {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 2.4rem;
+        color: var(--ink-soft);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .display-type {
+        margin: 0;
+        font-size: clamp(3rem, 7vw, 6.4rem);
+        letter-spacing: -0.055em;
+      }
+
+      .body-type {
+        max-width: 38rem;
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 1.14rem;
+      }
+
+      .component-stage {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+
+      .demo-card {
+        min-height: 360px;
+        padding: clamp(1.5rem, 4vw, 3rem);
+        border-radius: var(--radius-lg);
+        background: var(--white);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .demo-card h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.45rem;
+      }
+
+      .demo-card > p {
+        margin: 0 0 2.5rem;
+        color: var(--ink-soft);
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 3.35rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.25rem;
+        border: 2px solid var(--ink);
+        border-radius: 0.75rem;
+        box-shadow: 0 5px 0 var(--ink);
+        font-family: var(--font-display);
+        font-weight: 900;
+        text-decoration: none;
+        transition: transform 140ms ease, box-shadow 140ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 0 var(--ink);
+      }
+
+      .button:active {
+        transform: translateY(4px);
+        box-shadow: 0 1px 0 var(--ink);
+      }
+
+      .button:focus-visible,
+      .field:focus-visible,
+      a:focus-visible {
+        outline: 4px solid var(--yellow);
+        outline-offset: 4px;
+      }
+
+      .button-primary { background: var(--red); color: var(--white); }
+      .button-secondary { background: var(--blue); color: var(--white); }
+      .button-sun { background: var(--yellow); color: var(--ink); }
+
+      .field-label {
+        display: block;
+        margin-bottom: 0.6rem;
+        font-family: var(--font-display);
+        font-weight: 900;
+      }
+
+      .field {
+        width: 100%;
+        min-height: 3.45rem;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--ink);
+        border-radius: 0.75rem;
+        background: var(--paper);
+        box-shadow: inset 0 3px 0 rgb(39 37 31 / 0.06);
+        color: var(--ink);
+      }
+
+      .helper {
+        margin: 0.6rem 0 0;
+        color: var(--ink-soft);
+        font-size: 0.88rem;
+      }
+
+      .card-sample {
+        display: grid;
+        grid-template-columns: 5.5rem 1fr;
+        gap: 1.25rem;
+        align-items: center;
+        padding: 1.25rem;
+        border: 2px solid rgb(39 37 31 / 0.18);
+        border-radius: var(--radius-md);
+        background: var(--wood-light);
+        box-shadow: 0 5px 0 rgb(182 132 77 / 0.45);
+      }
+
+      .card-icon {
+        display: grid;
+        aspect-ratio: 1;
+        place-items: center;
+        border: 2px solid var(--blue-dark);
+        border-radius: 0.9rem;
+        background: var(--blue);
+        color: white;
+        font-family: var(--font-display);
+        font-size: 2.3rem;
+        box-shadow: inset 4px 4px 0 rgb(255 255 255 / 0.17);
+      }
+
+      .card-sample h4 {
+        margin: 0 0 0.25rem;
+        font-family: var(--font-display);
+        font-size: 1.2rem;
+      }
+
+      .card-sample p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 0.9rem;
+      }
+
+      .rules {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+      }
+
+      .rule-card {
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+      }
+
+      .rule-card h3 {
+        margin: 0 0 1rem;
+        font-size: 1.55rem;
+      }
+
+      .rule-card ul {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+
+      .rule-card li + li {
+        margin-top: 0.55rem;
+      }
+
+      .do {
+        border: 2px solid #9dc9a9;
+        background: #e8f4eb;
+      }
+
+      .avoid {
+        border: 2px solid #e8aca6;
+        background: #fae9e6;
+      }
+
+      .footer {
+        overflow: hidden;
+        padding-block: 4rem;
+        background: var(--ink);
+        color: var(--white);
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      .footer h2 {
+        max-width: 14ch;
+        font-size: clamp(2rem, 5vw, 4rem);
+      }
+
+      .mini-stack {
+        display: flex;
+        align-items: end;
+        gap: 0.45rem;
+      }
+
+      .mini-block {
+        display: block;
+        width: 3.5rem;
+        border: 2px solid rgb(255 255 255 / 0.45);
+        border-radius: 0.55rem;
+        box-shadow: 0 5px 0 rgb(0 0 0 / 0.4);
+      }
+
+      .mini-block:nth-child(1) { height: 3.5rem; background: var(--red); transform: rotate(-5deg); }
+      .mini-block:nth-child(2) { height: 5rem; background: var(--yellow); transform: rotate(3deg); }
+      .mini-block:nth-child(3) { height: 4.15rem; background: var(--blue); transform: rotate(-2deg); }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .block {
+          animation: settle 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .block-blue { animation-delay: 100ms; }
+        .block-yellow { animation-delay: 180ms; }
+        .block-wood { animation-delay: 260ms; }
+
+        @keyframes settle {
+          from { opacity: 0; translate: 0 -24px; }
+          to { opacity: 1; translate: 0 0; }
+        }
+      }
+
+      @media (max-width: 820px) {
+        .hero,
+        .section-header,
+        .type-stage,
+        .component-stage {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .block-scene {
+          min-height: 380px;
+        }
+
+        .principles {
+          grid-template-columns: 1fr;
+        }
+
+        .wood-panel {
+          min-height: 230px;
+        }
+
+        .number-block {
+          margin-bottom: 2rem;
+        }
+
+        .swatch-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 540px) {
+        .header-note {
+          display: none;
+        }
+
+        .shell {
+          width: min(100% - 1.25rem, 1180px);
+        }
+
+        .block-scene {
+          min-height: 320px;
+        }
+
+        .swatch-grid,
+        .rules {
+          grid-template-columns: 1fr;
+        }
+
+        .swatch {
+          min-height: 170px;
+        }
+
+        .card-sample {
+          grid-template-columns: 1fr;
+        }
+
+        .card-icon {
+          width: 5rem;
+        }
+
+        .footer-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to the style guide</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="../" aria-label="Back to decent.kids">
+          <span class="brand-mark" aria-hidden="true">d</span>
+          <span>decent.kids</span>
+        </a>
+        <p class="header-note">Block Party · Style Guide v1.0</p>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="shell hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">A playful visual system</p>
+          <h1 id="hero-title">Built for <span>bright</span> ideas.</h1>
+          <p>
+            A warm, sturdy design language inspired by the wooden blocks kids stack,
+            sort, tumble, and turn into whole new worlds.
+          </p>
+        </div>
+        <div class="block-scene" aria-label="A stack of red, blue, yellow, and natural wood blocks">
+          <div class="block block-red" aria-hidden="true">A</div>
+          <div class="block block-blue" aria-hidden="true">B</div>
+          <div class="block block-yellow" aria-hidden="true">123</div>
+          <div class="block block-wood" aria-hidden="true">★</div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="principles-title">
+        <div class="shell">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">01 · Foundations</p>
+              <h2 id="principles-title">Play with purpose.</h2>
+            </div>
+            <p>
+              Every choice should feel lively enough for kids and trustworthy enough for
+              grown-ups. The system is expressive, never chaotic; tactile, never toy-like.
+            </p>
+          </div>
+          <div class="principles">
+            <article class="wood-panel">
+              <span class="number-block" aria-hidden="true">1</span>
+              <h3>Clear first</h3>
+              <p>Big type, plain words, and obvious actions help everyone know what to do next.</p>
+            </article>
+            <article class="wood-panel">
+              <span class="number-block" aria-hidden="true">2</span>
+              <h3>Joy in the edges</h3>
+              <p>Color, tilt, texture, and bounce add delight without getting in the way.</p>
+            </article>
+            <article class="wood-panel">
+              <span class="number-block" aria-hidden="true">3</span>
+              <h3>Made to last</h3>
+              <p>Simple shapes and sturdy patterns keep the experience timeless and dependable.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="color-title">
+        <div class="shell">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">02 · Color</p>
+              <h2 id="color-title">The block box.</h2>
+            </div>
+            <p>
+              Primary colors do the talking. Natural wood and warm paper keep the palette grounded.
+              Use one hero color at a time, with the others as compact accents.
+            </p>
+          </div>
+          <div class="swatch-grid" aria-label="Core color palette">
+            <div class="swatch swatch-red"><strong>Build Red</strong><code>#D94B3D</code></div>
+            <div class="swatch swatch-blue"><strong>Sky Blue</strong><code>#3574B9</code></div>
+            <div class="swatch swatch-yellow"><strong>Sunny Yellow</strong><code>#F2C84B</code></div>
+            <div class="swatch swatch-wood"><strong>Natural Wood</strong><code>#E7C78F</code></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="type-title">
+        <div class="shell">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">03 · Typography</p>
+              <h2 id="type-title">Round, loud, readable.</h2>
+            </div>
+            <p>
+              Rounded display type carries personality. A calm humanist sans handles longer copy.
+              Both stacks use familiar system fonts for speed and broad device support.
+            </p>
+          </div>
+          <div class="type-stage">
+            <article class="type-card">
+              <div class="type-label"><span>Display</span><span>Rounded · 800</span></div>
+              <p class="display-type">Big ideas start small.</p>
+            </article>
+            <article class="type-card">
+              <div class="type-label"><span>Body</span><span>Humanist · 400</span></div>
+              <p class="body-type">
+                Curiosity grows when kids feel free to try, tumble, and try again. Keep sentences
+                short, instructions kind, and labels specific. Write like a helpful grown-up sitting
+                on the floor beside them.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="components-title">
+        <div class="shell">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">04 · Components</p>
+              <h2 id="components-title">Pieces that click.</h2>
+            </div>
+            <p>
+              Components feel like objects you can pick up: thick outlines, friendly corners,
+              shallow shadows, and clear pressed states.
+            </p>
+          </div>
+          <div class="component-stage">
+            <article class="demo-card">
+              <h3>Buttons</h3>
+              <p>Use action-first labels and reserve red for the main next step.</p>
+              <div class="button-row">
+                <a class="button button-primary" href="#components-title">Start building</a>
+                <a class="button button-secondary" href="#components-title">See an example</a>
+                <a class="button button-sun" href="#components-title">Try again</a>
+              </div>
+            </article>
+            <article class="demo-card">
+              <h3>Inputs</h3>
+              <p>Make fields generous, labeled, and forgiving.</p>
+              <label class="field-label" for="idea">Name your big idea</label>
+              <input class="field" id="idea" name="idea" placeholder="A rocket-powered treehouse" />
+              <p class="helper">Anything can be a starting point.</p>
+            </article>
+            <article class="demo-card">
+              <h3>Content cards</h3>
+              <p>Pair one strong visual cue with one focused message.</p>
+              <div class="card-sample">
+                <div class="card-icon" aria-hidden="true">★</div>
+                <div>
+                  <h4>Make something wonderful</h4>
+                  <p>Grab a block, choose a color, and see where your idea goes.</p>
+                </div>
+              </div>
+            </article>
+            <article class="demo-card">
+              <h3>Shape language</h3>
+              <p>Build with squares, arches, circles, and short sturdy stacks.</p>
+              <div class="block-scene" style="min-height: 220px" aria-hidden="true">
+                <div class="block block-red" style="width: 30%; font-size: 1.5rem">■</div>
+                <div class="block block-blue" style="width: 38%; font-size: 1.5rem">●</div>
+                <div class="block block-yellow" style="width: 38%; font-size: 1.5rem">▲</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="voice-title">
+        <div class="shell">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">05 · Voice &amp; motion</p>
+              <h2 id="voice-title">Encourage the next try.</h2>
+            </div>
+            <p>
+              Sound upbeat, direct, and respectful. Motion should mimic a block settling into place:
+              quick, physical, and complete.
+            </p>
+          </div>
+          <div class="rules">
+            <article class="rule-card do">
+              <h3>Build this way</h3>
+              <ul>
+                <li>Say “Let’s try another way.”</li>
+                <li>Celebrate effort and discovery.</li>
+                <li>Use movement to confirm an action.</li>
+                <li>Honor reduced-motion preferences.</li>
+              </ul>
+            </article>
+            <article class="rule-card avoid">
+              <h3>Leave this in the box</h3>
+              <ul>
+                <li>“Oops! You did it wrong.”</li>
+                <li>Baby talk or exaggerated slang.</li>
+                <li>Endless bouncing or spinning.</li>
+                <li>Color as the only status signal.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <div>
+          <p class="eyebrow" style="color: var(--yellow)">decent.kids · Block Party</p>
+          <h2>Make room for imagination.</h2>
+        </div>
+        <div class="mini-stack" aria-hidden="true">
+          <span class="mini-block"></span>
+          <span class="mini-block"></span>
+          <span class="mini-block"></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
