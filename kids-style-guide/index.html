@@ -447,14 +447,15 @@
       }
 
       .button {
+        --button-edge: var(--ink);
         display: inline-flex;
         min-height: 3.35rem;
         align-items: center;
         justify-content: center;
         padding: 0.8rem 1.25rem;
-        border: 2px solid var(--ink);
+        border: 2px solid var(--button-edge);
         border-radius: 0.75rem;
-        box-shadow: 0 5px 0 var(--ink);
+        box-shadow: 0 5px 0 var(--button-edge);
         font-family: var(--font-display);
         font-weight: 900;
         text-decoration: none;
@@ -463,24 +464,28 @@
 
       .button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 7px 0 var(--ink);
+        box-shadow: 0 7px 0 var(--button-edge);
       }
 
       .button:active {
         transform: translateY(4px);
-        box-shadow: 0 1px 0 var(--ink);
+        box-shadow: 0 1px 0 var(--button-edge);
       }
 
-      .button:focus-visible,
+      .button:focus-visible {
+        outline: 4px solid var(--button-edge);
+        outline-offset: 4px;
+      }
+
       .field:focus-visible,
-      a:focus-visible {
+      a:not(.button):focus-visible {
         outline: 4px solid var(--yellow);
         outline-offset: 4px;
       }
 
-      .button-primary { background: var(--red); color: var(--white); }
-      .button-secondary { background: var(--blue); color: var(--white); }
-      .button-sun { background: var(--yellow); color: var(--ink); }
+      .button-primary { --button-edge: var(--red-dark); background: var(--red); color: var(--white); }
+      .button-secondary { --button-edge: var(--blue-dark); background: var(--blue); color: var(--white); }
+      .button-sun { --button-edge: var(--yellow-dark); background: var(--yellow); color: var(--ink); }
 
       .field-label {
         display: block;
