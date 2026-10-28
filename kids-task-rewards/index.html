@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Block Day — a cozy daily task checklist for kids. Finish tasks, earn play tokens, spend them on games, and build your block town. A demo by decent.kids."
+    />
+    <meta name="theme-color" content="#f7edda" />
+    <title>Block Day — Task Rewards · decent.kids</title>
+    <link rel="icon" type="image/svg+xml" href="../kids-style-guide/brand/mark.svg" />
+    <link rel="stylesheet" href="../kids-style-guide/fonts/webfonts.css" />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to the checklist</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="#home" aria-label="Block Day home">
+          <img class="brand-mark" src="../kids-style-guide/brand/mark.svg" alt="" aria-hidden="true"/>
+          <span>Block&nbsp;Day</span>
+        </a>
+
+        <nav class="tabbar" aria-label="Main sections">
+          <button class="tab" type="button" data-view="home" aria-current="page">My Day</button>
+          <button class="tab" type="button" data-view="games">Games</button>
+          <button class="tab" type="button" data-view="grownups">Grown-ups</button>
+        </nav>
+
+        <p class="header-note" aria-hidden="true">a decent.kids demo</p>
+      </div>
+    </header>
+
+    <main id="main" class="shell">
+      <!-- ============ KID VIEW: TODAY ============ -->
+      <section class="view" id="view-home" aria-labelledby="home-title">
+        <p class="eyebrow" id="home-title">Today is a great building day</p>
+        <div class="day-grid">
+          <div class="balance-card" aria-live="off">
+            <p class="balance-label">Your play-time treasure</p>
+            <p class="balance-row">
+              <span class="balance-minutes" id="balance-minutes">0</span>
+              <span class="balance-word">minutes to spend</span>
+            </p>
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-label="Tasks finished today"
+              aria-valuemin="0"
+              aria-valuemax="1"
+              aria-valuenow="0"
+              id="progress-track"
+            >
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="progress-caption" id="progress-caption">0 of 0 tasks finished</p>
+            <p class="balance-hint">
+              Finish a task to earn minutes. Spend them in the Games box.
+            </p>
+          </div>
+
+          <div class="town-card">
+            <h2>Block town</h2>
+            <p class="town-sub">
+              Every finished task drops a block. Your town is
+              <span id="town-progress-text">still being built</span>.
+            </p>
+            <div class="town-scene" id="town-scene" aria-hidden="true"></div>
+            <ul class="badge-row" id="badge-row" aria-label="Achievements"></ul>
+          </div>
+        </div>
+
+        <div id="moments" aria-label="Today's tasks"></div>
+      </section>
+
+      <!-- ============ KID VIEW: GAMES ============ -->
+      <section class="view" id="view-games" hidden aria-labelledby="games-title">
+        <p class="eyebrow" id="games-title">The games box</p>
+        <h1 class="view-title">Pick a game, use your minutes</h1>
+        <p class="view-sub">
+          Every game card is <strong>illustrative</strong> — a fun idea, not a real playable game.
+          Starting one runs a play-time countdown that spends your earned minutes.
+        </p>
+
+        <div class="game-grid" id="game-grid"></div>
+
+        <div class="session-panel" id="session-panel" hidden>
+          <div class="session-head">
+            <h3 id="session-game-name">Playing</h3>
+            <span class="session-status-pill" id="session-status" role="status">Playing</span>
+          </div>
+          <p class="session-countdown" id="session-countdown" aria-hidden="true">10:00</p>
+          <p class="sr-only" id="session-countdown-sr" role="status"></p>
+          <div class="session-track" aria-hidden="true">
+            <div class="session-fill" id="session-fill"></div>
+          </div>
+          <div class="session-controls">
+            <button class="button button-sun" type="button" id="session-pause">Pause</button>
+            <button class="button button-ghost" type="button" id="session-stop">Stop early</button>
+          </div>
+          <p class="session-note" id="session-note"></p>
+        </div>
+
+        <div class="need-more" id="need-more" hidden>
+          <h3>Not enough minutes yet</h3>
+          <p id="need-more-text"></p>
+          <button class="button button-primary" type="button" data-view="home">Go finish a task</button>
+        </div>
+      </section>
+
+      <!-- ============ GROWN-UP VIEW ============ -->
+      <section class="view" id="view-grownups" hidden aria-labelledby="grownups-title">
+        <p class="eyebrow" id="grownups-title">For grown-ups</p>
+        <h1 class="view-title">Set up the day</h1>
+        <p class="view-sub">
+          This is the setup desk — it stays out of the way of the kid experience.
+          Changes save to this browser only (no accounts, no cloud, no tracking).
+        </p>
+
+        <div class="grownup-grid">
+          <form class="form-card" id="task-form" novalidate>
+            <h3 id="task-form-title">Add a task</h3>
+            <input type="hidden" name="id" id="f-id" />
+            <div class="form-row">
+              <label for="f-label">Task name</label>
+              <input
+                class="field"
+                id="f-label"
+                name="label"
+                required
+                maxlength="60"
+                placeholder="e.g. Brush teeth"
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-row">
+              <label for="f-moment">Moment</label>
+              <select class="field" id="f-moment" name="moment">
+                <option value="morning">Morning</option>
+                <option value="after">After School</option>
+                <option value="evening">Evening</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="f-category">Color cue</label>
+              <select class="field" id="f-category" name="category">
+                <option value="red">Red — care &amp; cleaning</option>
+                <option value="blue">Blue — learning</option>
+                <option value="yellow">Yellow — chores</option>
+                <option value="green">Green — healthy &amp; calm</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="f-minutes">Reward (minutes of play)</label>
+              <input
+                class="field"
+                id="f-minutes"
+                name="minutes"
+                type="number"
+                min="5"
+                max="120"
+                step="5"
+                required
+                inputmode="numeric"
+              />
+              <p class="helper">5 to 120 minutes, in steps of 5.</p>
+            </div>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit" id="task-form-submit">Add task</button>
+              <button class="button button-ghost" type="button" id="task-form-cancel" hidden>Cancel</button>
+            </div>
+          </form>
+
+          <div class="admin-panel">
+            <h3 class="admin-heading">Today's tasks</h3>
+            <ul class="admin-task-list" id="admin-task-list"></ul>
+            <h3 class="admin-heading">Demo controls</h3>
+            <div class="form-actions" style="margin-top: 0">
+              <button class="button button-secondary" type="button" id="reset-day">Reset today's check-offs</button>
+              <button class="button button-ghost" type="button" id="reset-all">Reset everything</button>
+            </div>
+            <p class="helper" style="margin-top: 1rem">
+              “Reset today's check-offs” unchecks every task and refunds the minutes back to
+              zero, as if it's a fresh morning. “Reset everything” also restores the original
+              demo tasks and balance.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <div>
+          <p class="eyebrow footer-eyebrow">decent.kids · Block Day demo</p>
+          <h2>Small tasks, big play.</h2>
+        </div>
+        <p class="footer-note">
+          Games are illustrative. Everything lives in your browser's local storage —
+          nothing is sent anywhere.
+        </p>
+      </div>
+    </footer>
+
+    <div class="sr-only" role="status" aria-live="polite" id="announcer"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
